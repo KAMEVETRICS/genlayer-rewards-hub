@@ -11,7 +11,7 @@ export interface Contest {
   max_winners: number;
   deadline: number;
   accepted_count: number;
-  is_active: boolean;
+  is_active: boolean | string | number;
   spots_remaining: number;
 }
 
