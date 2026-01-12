@@ -1,7 +1,48 @@
 /**
- * TypeScript types for GenLayer Football Betting contract
+ * TypeScript types for GenLayer Content Rewards contract
  */
 
+export interface Contest {
+  contest_id: number;
+  creator: string;
+  platform_pattern: string;
+  required_topic: string;
+  reward_description: string;
+  max_winners: number;
+  deadline: number;
+  accepted_count: number;
+  is_active: boolean;
+  spots_remaining: number;
+}
+
+export interface Submission {
+  submitter: string;
+  content_url: string;
+  status: "pending" | "accepted" | "rejected" | "voided";
+  rejection_reason: string;
+}
+
+export interface UserSubmission {
+  has_submitted: boolean;
+  content_url?: string;
+  status?: "pending" | "accepted" | "rejected" | "voided";
+  rejection_reason?: string;
+}
+
+export interface SubmitResult {
+  status: "accepted" | "rejected" | "voided";
+  reason: string;
+}
+
+export interface TransactionReceipt {
+  status: string;
+  hash: string;
+  blockNumber?: number;
+  data?: any;
+  [key: string]: any;
+}
+
+// Legacy types (kept for compatibility)
 export interface Bet {
   id: string;
   game_date: string;
@@ -18,13 +59,6 @@ export interface Bet {
 export interface LeaderboardEntry {
   address: string;
   points: number;
-}
-
-export interface TransactionReceipt {
-  status: string;
-  hash: string;
-  blockNumber?: number;
-  [key: string]: any;
 }
 
 export interface BetFilters {

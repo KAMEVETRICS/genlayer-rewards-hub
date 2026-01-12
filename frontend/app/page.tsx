@@ -1,10 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
-import { BetsTable } from "@/components/BetsTable";
-import { Leaderboard } from "@/components/Leaderboard";
+import { ContestList } from "@/components/ContestList";
+import { SubmissionsTable } from "@/components/SubmissionsTable";
+import { SubmitContentModal } from "@/components/SubmitContentModal";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function HomePage() {
+  const [selectedContestId, setSelectedContestId] = useState<number | null>(null);
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navbar */}
@@ -16,48 +22,76 @@ export default function HomePage() {
           {/* Hero Section */}
           <div className="text-center mb-8 animate-fade-in">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-              Football Prediction Betting
+              Content Rewards
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              AI-powered football match predictions on GenLayer blockchain.
+              AI-powered content validation on GenLayer blockchain.
               <br />
-              Create bets, make predictions, and compete for points.
+              Create contests, submit content, and earn rewards.
             </p>
           </div>
 
-          {/* Main Grid Layout - 2/1 columns on desktop, stacked on mobile */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-            {/* Left Column - Bets Table (67% on desktop) */}
-            <div className="lg:col-span-8 animate-slide-up">
-              <BetsTable />
+          {/* Main Content Area */}
+          {selectedContestId !== null ? (
+            // Contest Detail View
+            <div className="animate-slide-up">
+              <div className="flex items-center gap-4 mb-6">
+                <Button
+                  variant="ghost"
+                  onClick={() => setSelectedContestId(null)}
+                  className="flex items-center gap-2"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Back to Contests
+                </Button>
+                <div className="flex-grow" />
+                <SubmitContentModal contestId={selectedContestId} />
+              </div>
+              <SubmissionsTable contestId={selectedContestId} />
             </div>
-
-            {/* Right Column - Leaderboard (33% on desktop) */}
-            <div className="lg:col-span-4 animate-slide-up" style={{ animationDelay: "100ms" }}>
-              <Leaderboard />
+          ) : (
+            // Contest List View
+            <div className="animate-slide-up">
+              <ContestList
+                selectedContestId={selectedContestId}
+                onSelectContest={setSelectedContestId}
+              />
             </div>
-          </div>
+          )}
 
           {/* Info Section */}
-          <div className="mt-8 glass-card p-6 md:p-8 animate-fade-in" style={{ animationDelay: "200ms" }}>
+          <div
+            className="mt-8 glass-card p-6 md:p-8 animate-fade-in"
+            style={{ animationDelay: "200ms" }}
+          >
             <h2 className="text-2xl font-bold mb-4">How it Works</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="space-y-2">
-                <div className="text-accent font-bold text-lg">1. Create a Bet</div>
+                <div className="text-accent font-bold text-lg">1. Create a Contest</div>
                 <p className="text-sm text-muted-foreground">
-                  Connect your wallet and create a football match prediction. Choose the teams, date, and your predicted winner.
+                  Connect your wallet and create a content rewards contest. Specify the topic,
+                  platform, and reward details.
                 </p>
               </div>
               <div className="space-y-2">
-                <div className="text-accent font-bold text-lg">2. Wait for Resolution</div>
+                <div className="text-accent font-bold text-lg">2. Submit Content</div>
                 <p className="text-sm text-muted-foreground">
-                  After the match, the bet creator resolves the bet. GenLayer's AI verifies the actual match result.
+                  Participants submit URLs to their published content. Each wallet can submit
+                  once per contest.
                 </p>
               </div>
               <div className="space-y-2">
-                <div className="text-accent font-bold text-lg">3. Earn Points</div>
+                <div className="text-accent font-bold text-lg">3. AI Validation</div>
                 <p className="text-sm text-muted-foreground">
-                  Correct predictions earn you points. Climb the leaderboard and prove your football knowledge!
+                  GenLayer validators use AI to verify if content matches the required topic.
+                  Valid submissions are accepted.
+                </p>
+              </div>
+              <div className="space-y-2">
+                <div className="text-accent font-bold text-lg">4. Get Rewarded</div>
+                <p className="text-sm text-muted-foreground">
+                  Accepted submissions are added to the winners list. Rewards are distributed
+                  offline by the contest creator.
                 </p>
               </div>
             </div>
@@ -69,38 +103,38 @@ export default function HomePage() {
       <footer className="border-t border-white/10 py-2">
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
-              <a
-                href="https://genlayer.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-accent transition-colors"
-              >
-                Powered by GenLayer
-              </a>
-              <a
-                href="https://studio.genlayer.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-accent transition-colors"
-              >
-                Studio
-              </a>
-              <a
-                href="https://docs.genlayer.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-accent transition-colors"
-              >
-                Docs
-              </a>
-              <a
-                href="https://github.com/genlayerlabs/genlayer-project-boilerplate"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-accent transition-colors"
-              >
-                GitHub
-              </a>
+            <a
+              href="https://genlayer.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent transition-colors"
+            >
+              Powered by GenLayer
+            </a>
+            <a
+              href="https://studio.genlayer.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent transition-colors"
+            >
+              Studio
+            </a>
+            <a
+              href="https://docs.genlayer.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent transition-colors"
+            >
+              Docs
+            </a>
+            <a
+              href="https://github.com/genlayerlabs/genlayer-project-boilerplate"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent transition-colors"
+            >
+              GitHub
+            </a>
           </div>
         </div>
       </footer>

@@ -1,25 +1,39 @@
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-.env
-node_modules
-# Python bytecode
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-/context
-/frontend/.next
-/frontend/next-env.d.ts
-/frontend/bun.lock
-/frontend/package-lock.json
-*.compiled.js
-package-lock.json
+# Dependencies
+node_modules/
+frontend/node_modules/
 
+# Environment files
+.env
+.env.local
+.env.*.local
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# Build outputs
+frontend/.next/
+frontend/out/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Misc
+.vercel
