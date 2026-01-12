@@ -23,7 +23,7 @@ export interface Submission {
 }
 
 export interface UserSubmission {
-  has_submitted: boolean;
+  has_submitted: boolean | string | number;
   content_url?: string;
   status?: "pending" | "accepted" | "rejected" | "voided";
   rejection_reason?: string;
