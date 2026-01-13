@@ -85,15 +85,19 @@ export function Navbar() {
               style={{ height: `${headerHeight}px` }}
             >
               {/* Left: Logo */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 min-w-0">
                 {/* Show mark only on mobile, full logo on desktop */}
-                <LogoMark size="md" className="flex md:hidden" />
-                <Logo size="md" className="hidden md:flex" />
-                <span className="text-lg md:text-xl font-bold ml-2">Content Rewards</span>
+                <div className="block md:hidden flex-shrink-0">
+                  <LogoMark size="md" />
+                </div>
+                <div className="hidden md:block flex-shrink-0">
+                  <Logo size="md" />
+                </div>
+                <span className="hidden sm:inline text-lg md:text-xl font-bold truncate">Content Rewards</span>
               </div>
 
-              {/* Center: Stats */}
-              <div className="hidden md:flex items-center gap-6 text-sm">
+              {/* Center: Stats - hidden on mobile */}
+              <div className="hidden lg:flex items-center gap-6 text-sm">
                 <div className="flex items-center gap-2">
                   <span className="text-muted-foreground">Total Contests:</span>
                   <span className="text-foreground font-bold text-accent">{totalContests}</span>
@@ -105,8 +109,10 @@ export function Navbar() {
               </div>
 
               {/* Right: Actions */}
-              <div className="flex items-center gap-3">
-                <CreateContestModal />
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <div className="hidden sm:block">
+                  <CreateContestModal />
+                </div>
                 <AccountPanel />
               </div>
             </div>
