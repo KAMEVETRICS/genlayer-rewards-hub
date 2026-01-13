@@ -141,9 +141,9 @@ export function CreateContestModal() {
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="gradient" disabled={!isConnected || !address || isLoading}>
-          <Plus className="w-4 h-4 mr-2" />
-          Create Contest
+        <Button variant="gradient" disabled={!isConnected || !address || isLoading} size="default" className="px-3 sm:px-4">
+          <Plus className="w-4 h-4 sm:mr-2" />
+          <span className="hidden sm:inline">Create Contest</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="brand-card border-2 sm:max-w-[550px] max-h-[90vh] overflow-y-auto">
